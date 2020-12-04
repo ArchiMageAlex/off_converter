@@ -1,5 +1,8 @@
 # OpenFoodFacts CSV to PostgreSQL converter
 
+### Original data of OpenFoodFacts
+Download page: https://world.openfoodfacts.org/data
+
 ### Getting Started
 Check database settings at application.properties
 
