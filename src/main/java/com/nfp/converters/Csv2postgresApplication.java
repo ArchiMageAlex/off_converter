@@ -104,7 +104,7 @@ public class Csv2postgresApplication implements CommandLineRunner {
                         m = OpenFoodFact.class.getDeclaredMethod(methodName, Double.class);
 
                         if (value.contains("_")) {
-                            log.error("Value of field {}, product code={} contains underscore: {}"
+                            log.error("Product code={}. Value of field {} contains underscore: {}"
                                     , field.getName()
                                     , fact.getCode()
                                     , value);
