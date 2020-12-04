@@ -14,7 +14,7 @@ Place OpenFoodFacts products csv file to path and point it at the program parame
 
 Get it from here: https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv
 
-Run: mvn spring-boot:run --filename en.openfoodfacts.org.products.txt
+Run: mvn spring-boot:run --filename en.openfoodfacts.org.products.csv
 
 Wait approx 4 hours at hardware like:
     Intel Core i7 3770K, 32GB RAM, HDD 7200 RPM
