@@ -1,6 +1,6 @@
 # OpenFoodFacts CSV to PostgreSQL converter
 
-### Original data
+### Original data of OpenFoodFacts
 Download page: https://world.openfoodfacts.org/data
 
 ### Getting Started
