@@ -27,19 +27,20 @@ import java.util.List;
 @SpringBootApplication
 @Configuration
 public class Csv2postgresApplication implements CommandLineRunner {
-    @Autowired
-    public void setRepo(OpenFoodFactRepository repo) {
-        this.repo = repo;
-    }
-
+    private final Object lockObj = new Object();
     private OpenFoodFactRepository repo;
     @Value("${com.nfp.converters.csv2postgres.tic:10000}")
     private long tic = 10000; // every tic print status
     private long linesCount;
-    private final Object lockObj = new Object();
+    private boolean test;
 
     public static void main(String[] args) {
         SpringApplication.run(Csv2postgresApplication.class, args);
+    }
+
+    @Autowired
+    public void setRepo(OpenFoodFactRepository repo) {
+        this.repo = repo;
     }
 
     @Override
@@ -53,7 +54,10 @@ public class Csv2postgresApplication implements CommandLineRunner {
                 .withArgName("filename")
                 .hasArg(true)
                 .withDescription("File name").create());
+        options.addOption(OptionBuilder.withLongOpt("test").withArgName("test").create());
         CommandLine cmd = parser.parse(options, args);
+        test = cmd.hasOption("test");
+        log.info("Testing mode (without import) = {}", test);
         String filename = cmd.getOptionValue("filename");
 
         if (null != filename && !filename.isEmpty()) {
@@ -98,7 +102,16 @@ public class Csv2postgresApplication implements CommandLineRunner {
                 } catch (NoSuchMethodException e) {
                     if (!value.isEmpty()) {
                         m = OpenFoodFact.class.getDeclaredMethod(methodName, Double.class);
-                        m.invoke(fact, Double.valueOf(l.get(fieldCounter).replace("_", "")));
+
+                        if (value.contains("_")) {
+                            log.error("Value of field {}, product code={} contains underscore: {}"
+                                    , field.getName()
+                                    , fact.getCode()
+                                    , value);
+                            m.invoke(fact, Double.valueOf(value.replace("_", "")));
+                        } else {
+                            m.invoke(fact, Double.valueOf(value));
+                        }
                     }
                 } catch (IllegalAccessException e) {
                     log.error("", e);
@@ -115,12 +128,15 @@ public class Csv2postgresApplication implements CommandLineRunner {
             fieldCounter++;
         }
 
-        try {
-            repo.save(fact);
-        } catch (DataIntegrityViolationException e) {
-            log.debug("Current object: {}", fact.toString());
-            log.error("Exception is:", e);
+        if (!test) {
+            try {
+                repo.save(fact);
+            } catch (DataIntegrityViolationException e) {
+                log.debug("Current object: {}", fact.toString());
+                log.error("Exception is:", e);
+            }
         }
+
         updateProcess(fact.toString());
     }
 

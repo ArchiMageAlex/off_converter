@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+en.openfoodfacts.org.products.csv
 
 ### STS ###
 .apt_generated
