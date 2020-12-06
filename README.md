@@ -4,7 +4,7 @@
 Download page: https://world.openfoodfacts.org/data
 
 ### Getting Started
-Check database settings at application.properties
+Check database settings at application.properties file:
 
     spring.main.banner-mode=off
     logging.level.org.springframework=error
@@ -20,6 +20,10 @@ Check database settings at application.properties
     # every tic print progress
     com.nfp.converters.csv2postgres.tic=100000
 
+If You want to add data at the specific PostgreSQL instance, place application.properties file at the desired location and point an application to it with parameter:
+
+    --spring.config.location=file:///Users/home/config/application.properties
+
 ### Running guide
 Place OpenFoodFacts products csv file to path and point it at the program parameters.
 
@@ -33,4 +37,4 @@ Wait approx 4 hours at hardware like:
 
 Test mode much more faster, help to understand that CSV file doesn't contains errors in data.
 
-To swith test mode on add --test option to command line.
+To switch test mode on add --test option to command line.
