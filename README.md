@@ -35,6 +35,6 @@ Wait approx 4 hours at hardware like:
     Intel Core i7 3770K, 32GB RAM, HDD 7200 RPM
     PostgreSQL 13 at default Docker Desktop host
 
-Test mode much more faster, help to understand that CSV file doesn't contains errors in data.
+Test mode much more faster, it helps to understand that CSV file doesn't contains errors in data.
 
 To switch test mode on add --test option to command line.
