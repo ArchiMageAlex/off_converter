@@ -54,7 +54,7 @@ public class Csv2postgresApplication implements CommandLineRunner {
                 .withArgName("filename")
                 .hasArg(true)
                 .withDescription("File name").create());
-        options.addOption(OptionBuilder.withLongOpt("test").withArgName("test").create());
+        options.addOption(OptionBuilder.withLongOpt("test").withArgName("test").withDescription("Test mode on").create());
         CommandLine cmd = parser.parse(options, args);
         test = cmd.hasOption("test");
         log.info("Testing mode (without import) = {}", test);
@@ -64,7 +64,7 @@ public class Csv2postgresApplication implements CommandLineRunner {
             readFile(filename);
         } else {
             log.error("Filename parameter is empty");
-            formatter.printHelp("Csv2postgresApplication", options);
+            formatter.printHelp("java -jar csv2postgres-1.1.0-RELEASE.jar", options);
         }
 
         log.debug("End app");
