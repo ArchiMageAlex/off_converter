@@ -17,8 +17,11 @@ Place OpenFoodFacts products csv file to path and point it at the program parame
 
 Get it from here: https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv
 
-Run: mvn spring-boot:run --filename en.openfoodfacts.org.products.csv
+Run: java -jar csv2postgres-1.1.0-RELEASE.jar --filename en.openfoodfacts.org.products.csv
 
 Wait approx 4 hours at hardware like:
     Intel Core i7 3770K, 32GB RAM, HDD 7200 RPM
     PostgreSQL 13 at default Docker Desktop host
+
+Test mode much more faster, help to understand that CSV file doesn't contains errors in data
+To swith test mode on add --test option to command line
